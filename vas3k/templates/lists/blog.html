@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% load staticfiles %}
+{% load text_filters %}
+{% load paginator %}
+
+{% block title %}
+    Блог {{ block.super }}
+{% endblock %}
+
+{% block body %}
+<div class="container container_width_limited">
+    <div class="content content_type_blog">
+        <div class="sidebar-wrapper">
+            {% for story in stories %}
+                <a href="/{{ story.type }}/{{ story.slug }}/" class="story story_type_blog" style="background-image: url('{{ story.image|resized_image:900 }}');">
+                    <span class="story__info">
+                        <span class="story__title">{{ story.title | safe }}</span>
+                        {% if story.subtitle %}
+                            <span class="story__subtitle">{{ story.subtitle | safe }}</span>
+                        {% endif %}
+                        <span class="story__date">{{ story.created_at|date:"d E Y"|lower }} :: {{ story.comments_count }} {{ story.comments_count|rupluralize:"комментарий,комментария,комментариев" }} :: {{ story.views_count }} {{ story.views_count|rupluralize:"просмотр,просмотра,просмотров" }} :: {{ story.reading_time }} {{ story.reading_time|rupluralize:"минута,минуты,минут" }} чтения</span>
+                        {% if story.author and story.author != "vas3k" %}
+                            <span class="story__author">
+                                <img src="/static/images/avatars/{{ story.author }}.png">{{ story.author }}
+                            </span>
+                        {% endif %}
+                    </span>
+                </a>
+            {% endfor %}
+            {% paginator stories %}
+        </div>
+    </div>
+    <div class="sidebar">
+        {% include "common/sidebar.html" %}
+    </div>
+</div>
+{% endblock %}
+

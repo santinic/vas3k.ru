@@ -1,0 +1,7 @@
+{% load text_filters %}
+<a href="{{ block.memories.0.image|resized_image:"full" }}" class="events__block block-picnormal">
+    <img src="{{ block.memories.0.image|resized_image:1000 }}" class="block-picnormal__image" alt="{{ block.memories.0.title }}" style="-webkit-transform: translate(0, 0) scale(1);">
+    {% if block.memories.0.title %}
+        <span class="block-picnormal__text">{{ block.memories.0.title }}</span>
+    {% endif %}
+</a>

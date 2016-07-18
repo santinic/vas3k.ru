@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% load staticfiles %}
+{% load text_filters %}
+{% load paginator %}
+
+{% block title %}
+    Галерея {{ block.super }}
+{% endblock %}
+
+{% block body %}
+<div class="container container_width_max">
+<div class="content content_type_gallery">
+    <div class="gallery-list">
+        {% for story in stories %}
+        <a href="/{{ story.type }}/{{ story.slug }}/" class="story story_type_gallery gallery-list__item" style="background-image: url('{% if story.image_preview %}{{ story.image_preview }}{% else %}{{ story.image|resized_image:600 }}{% endif %}'); width: {{ story.size_x }}px;">
+            <span class="story__info">
+                <span class="story__title">{{ story.title | safe }}</span>
+                {% if story.subtitle %}
+                    <span class="story__subtitle">{{ story.subtitle | safe }}</span>
+                {% endif %}
+                <span class="story__date hide-on-mobile">{{ story.created_at|date:"d E Y"|lower }} :: {{ story.comments_count }} {{ story.comments_count|rupluralize:"комментарий,комментария,комментариев" }} :: {{ story.views_count }} {{ story.views_count|rupluralize:"просмотр,просмотра,просмотров" }}</span>
+            </span>
+        </a>
+        {% endfor %}
+    </div>
+    {% paginator stories %}
+</div>
+{% endblock %}

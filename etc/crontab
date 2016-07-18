@@ -1,0 +1,1 @@
+*/10 * * * * cd /home/vas3k/vas3k.ru/scripts/ && python3 twitter_console.py > /home/vas3k/vas3k.ru/logs/twitter_console.log

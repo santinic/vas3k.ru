@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% load staticfiles %}
+{% load text_filters %}
+{% load comments %}
+
+{% block title %}
+    {{ story.title }} :: События {{ block.super }}
+{% endblock %}
+
+{% block body_styles %}
+    {% if story.data and "background_color" in story.data %}background-color: {{ story.data.background_color }};{% endif %}
+    {% if story.data and "color" in story.data %}color: {{ story.data.color }};{% endif %}
+{% endblock %}
+
+{% block meta %}
+    {{ block.super }}
+    <meta property="og:title" content="{{ story.title }}" />
+    <meta property="og:description" content="{{ story.text | truncatewords:100 }}" />
+    <meta property="og:url" content="http://vas3k.ru/events/{{ story.slug }}/" />
+    <meta property="og:image" content="{{ story.image }}" />
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ story.title }}">
+    <meta name="twitter:description" content="{{ story.text | truncatewords:100 }}">
+    <meta name="twitter:image" content="{{ story.image }}">
+    <meta name="twitter:image:src" content="{{ story.image }}">
+{% endblock %}
+
+{% block body %}
+<div class="container container_width_full">
+    <div class="content events">
+        {% with story.image|default:story.fake_image as story_image %}
+            <div class="blog__image full-height-forced" style="background-image: url('{{ story_image|resized_image:"full" }}'); -webkit-transform: translate(0, 0) scale(1);">
+                <a href="{{ story_image|resized_image:"full" }}" target="_blank" class="blog__image-link">Открыть изображение &raquo;</a>
+                <span class="blog__info-wrapper">
+                    <span class="blog__info">
+                        <span class="blog__title">{{ story.title | safe }}</span>
+                        {% if story.subtitle %}
+                            <span class="blog__subtitle">{{ story.subtitle | safe }}</span>
+                        {% endif %}
+                        <span class="blog__date hide-on-mobile">{{ story.created_at|date:"d E Y"|lower }} :: {{ story.comments_count }} {{ story.comments_count|rupluralize:"комментарий,комментария,комментариев" }} :: {{ story.views_count }} {{ story.views_count|rupluralize:"просмотр,просмотра,просмотров" }}</span>
+                    </span>
+                </span>
+            </div>
+        {% endwith %}
+        {% if story.text %}
+            <div class="events__text">
+                <p>{{ story.text|safe|nl2br }}</p>
+            </div>
+        {% endif %}
+
+        {% for block in story.memories_feed %}
+            {% include "full/memory_blocks/"|add:block.type|add:".html" %}
+        {% endfor %}
+    </div>
+    <div class="clearfix"></div>
+    <div class="comments">
+        {% include "comments/comments.html" %}
+
+        {% if story.is_commentable %}
+            {% comment_form story.id cookies.username %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+
+
+

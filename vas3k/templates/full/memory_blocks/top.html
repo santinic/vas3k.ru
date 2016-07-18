@@ -1,0 +1,25 @@
+{% load text_filters %}
+<div class="events__block block-top">
+    <div class="block-top__text">
+        {% for memory in block.memories.text %}
+            <div class="memory-text">
+                <span class="author">
+                    <a href="http://twitter.com/vas3k" target="_blank">
+                        <img src="/static/images/avatars/{{ story.author }}.png">vas3k
+                    </a>
+                    <small>:: {{ memory.created_at|date:"d E Y"|lower }}</small>
+                </span>
+                <span class="memory-text__text">
+                    {{ memory.text|urlize }}
+                </span>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="block-top__images {% if not block.memories.text %}block-top__images-big{% endif %}">
+        {% for memory in block.memories.picsquare %}
+            <a href="{{ memory.image|resized_image:"full" }}" class="memory-picsquare {% cycle "left" "right" %}" style="background-image: url('{{ memory.image|resized_image:1000 }}');">
+                <span class="memory-picsquare__text">{{ memory.title }}</span>
+            </a>
+        {% endfor %}
+    </div>
+</div>

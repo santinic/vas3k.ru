@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% load staticfiles %}
+{% load text_filters %}
+{% load comments %}
+
+
+{% block title %}
+    Комментарии :: {{ block.super }}
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    {% include "comments/comments.html" %}
+</div>
+{% endblock %}

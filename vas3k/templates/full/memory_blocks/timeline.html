@@ -1,0 +1,19 @@
+{% load text_filters %}
+<div class="events__block block-timeline">
+    {% for memory in block.memories %}
+        {% if memory.type == "text" %}
+            <span class="block-timeline__block block-timeline__text {% cycle "left" "right" %}">
+{#                <span class="block-timeline__date">{{ memory.created_at|date:"d E"|lower }}</span>#}
+                <span class="block-timeline__text-inner">{{ memory.title }}</span>
+            </span>
+        {% else %}
+            <a href="{{ memory.image|resized_image:"full" }}" class="block-timeline__block block-timeline__image {% cycle "left" "right" %}">
+{#                <span class="block-timeline__date">{{ memory.created_at|date:"d E"|lower }}</span>#}
+                <img src="{{ memory.image|resized_image:500 }}" style="-webkit-transform: translate(0, 0) scale(1);">
+                {% if memory.title %}
+                    <span class="block-timeline__title">{{ memory.title }}</span>
+                {% endif %}
+            </a>
+        {% endif %}
+    {% endfor %}
+</div>

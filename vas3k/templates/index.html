@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+{% load staticfiles %}
+{% load text_filters %}
+{% load paginator %}
+
+{% block body %}
+    <div class="contacts">
+        <i class="icon-emailalt"></i>&nbsp;<a href="mailto:me@vas3k.ru">me@vas3k.ru</a>
+        <span class="break-on-mobile"></span>
+        <a href="skype:vas3k_taburedko?chat"><i class="icon-skype"></i></a>
+        <a href="http://twitter.com/vas3k" target="_blank"><i class="icon-twitter"></i></a>
+        <a href="https://www.linkedin.com/in/vas3k" target="_blank"><i class="icon-linkedin"></i></a>
+        <a href="http://www.facebook.com/vas3k.ru" target="_blank"><i class="icon-facebookalt"></i></a>
+        <a href="http://instagram.com/vas3k" target="_blank"><i class="icon-instagramtwo"></i></a>
+        <a href="http://github.com/vas3k/" target="_blank"><i class="icon-github"></i></a>
+{#        <a href="http://vas3k.moikrug.ru/" target="_blank"><i class="icon-flowernew"></i></a>#}
+        <a href="http://vas3k.habrahabr.ru" target="_blank"><i class="icon-hospital"></i></a>
+        <a href="http://vas3k.imhonet.ru/" target="_blank"><i class="icon-moviereel"></i></a>
+        <a href="http://last.fm/user/vas3k" target="_blank"><i class="icon-lastfm"></i></a>
+        <a href="http://www.quora.com/Vasily-Zubarev" target="_blank"><i class="icon-quora"></i></a>
+        <a href="{% url "rss.full" %}" target="_blank"><i class="icon-rss"></i></a>
+    </div>
+    <div class="top">
+        {% for story in top_blog %}
+            <div class="ratio_1_1 top-story-wrapper">
+                <a href="/{{ story.type }}/{{ story.slug }}/" class="story top-story" style="background-image: url('{% if story.image_preview %}{{ story.image_preview }}{% else %}{{ story.image|resized_image:500 }}{% endif %}');">
+                    <span class="story__badges hide-on-iphone">
+                        <span class="story__hot">Последний пост</span>
+                    </span>
+                    <span class="story__info top-story__info">
+                        <span class="story__title top-story__title">{{ story.title }}</span>
+                    </span>
+                </a>
+            </div>
+        {% endfor %}
+        {% for story in top_gallery %}
+            <div class="ratio_1_1 top-story-wrapper">
+                <a href="/{{ story.type }}/{{ story.slug }}/" class="story top-story" style="background-image: url('{% if story.image_preview %}{{ story.image_preview }}{% else %}{{ story.image|resized_image:500 }}{% endif %}');">
+                    <span class="story__badges hide-on-iphone">
+                        <span class="story__hot">Новое фото</span>
+                    </span>
+                    <span class="story__info top-story__info">
+                        <span class="story__title top-story__title">{{ story.title }}</span>
+                    </span>
+                </a>
+            </div>
+        {% endfor %}
+        {% for story in top_featured %}
+            <div class="ratio_1_1 top-story-wrapper hide-on-iphone">
+                <a href="/{{ story.type }}/{{ story.slug }}/" class="story top-story" style="background-image: url('{% if story.image_preview %}{{ story.image_preview }}{% else %}{{ story.image|resized_image:500 }}{% endif %}');">
+                    <span class="story__badges">
+                        <span class="story__hot">{% if forloop.first %}Охуенчик{% endif %}</span>
+                    </span>
+                    <span class="story__info top-story__info">
+                        <span class="story__title top-story__title">{{ story.title }}</span>
+                    </span>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="top-comments show-on-mobile">
+        <ul>
+            {% for comment in last_comments|slice:":5" %}
+                <li class="top-comments__comment">
+                    <a href="/{{ comment.story.type }}/{{ comment.story.slug }}/#comment{{ comment.id }}" class="top-comments__title">{{ comment.author }} &rarr; {{ comment.story.title }}</a>
+                    {% if not comment.story.password %}
+                        <small class="top-comments__preview">{{ comment.text|striptags|truncatewords:20|nl2br|safe }}</small>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="container container_width_limited">
+        <div class="content content_type_timeline">
+            <div class="sidebar-wrapper">
+                {% for story in stories %}
+                    {% include "timeline/"|add:story.type|add:".html" %}
+                {% endfor %}
+                {% paginator stories %}
+            </div>
+        </div>
+        <div class="sidebar sidebar_type_timeline">
+            {% include "common/sidebar.html" %}
+        </div>
+    </div>
+
+{% endblock %}

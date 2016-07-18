@@ -1,0 +1,29 @@
+<div class="comments-form">
+    <form action="/comments/send/" method="post" id="comments-form" accept-charset="utf-8">
+        {% csrf_token %}
+        <input type="hidden" name="password" value="{{ request.REQUEST.password }}"/>
+        <input type="hidden" name="story_id" value="{{ story_id }}"/>
+
+        <p>
+            <label for="author">Автор:</label> <input type="text" name="author" id="author" value="{{ username }}"/>
+            <span class="break-on-mobile"></span>
+            <label for="email">Вы - бот?</label> <input type="text" name="email" id="email"/>
+            <span class="break-on-mobile"></span>
+            <small>(не заполняйте это поле)</small>
+        </p>
+        <p><textarea cols="30" rows="10" name="text" id="comment-text"></textarea></p>
+        <p><input type="submit" onclick="$(this).attr('disabled', 'disabled'); $('#comments-form').submit();" value="Отправить"/>
+    </form>
+{#    <div id="comment_info" style="display: none;">#}
+{#        <strong>Разрешённые html-теги</strong><br/><br/>#}
+{#        <b>&lt;a href="http://"&gt;ссылка&lt;/a&gt;</b> &mdash; Вставляет ссылку в комментарий<br/>#}
+{#        <b>&lt;pre&gt;&lt;/pre&gt;</b> &mdash; Не форматировать текст. Сохраняет отступы, удобно при печати#}
+{#        кода.<br/>#}
+{#        <b>&lt;hr /&gt;</b> &mdash; Вставить горизонтальную линию<br/>#}
+{#        <br/><br/>#}
+{#        <b>&lt;b&gt;&lt;/b&gt;</b> &mdash; Жирный текст<br/>#}
+{#        <b>&lt;u&gt;&lt;/u&gt;</b> &mdash; Подчеркнутый текст<br/>#}
+{#        <b>&lt;i&gt;&lt;/i&gt;</b> &mdash; Курсив<br/>#}
+{#        <b>&lt;s&gt;&lt;/s&gt;</b> &mdash; Зачеркнутый текст<br/>#}
+{#    </div>#}
+</div>

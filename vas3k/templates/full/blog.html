@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+{% load staticfiles %}
+{% load text_filters %}
+{% load comments %}
+
+{% block title %}
+    {{ story.title }} :: Блог {{ block.super }}
+{% endblock %}
+
+{% block body_styles %}
+    {% if story.data and "background_color" in story.data %}background-color: {{ story.data.background_color }};{% endif %}
+    {% if story.data and "color" in story.data %}color: {{ story.data.color }};{% endif %}
+{% endblock %}
+
+{% block meta %}
+    {{ block.super }}
+    <meta property="og:title" content="{{ story.title }}" />
+    {% if not story.password %}
+        <meta property="og:description" content="{{ story.text | truncatewords:100 }}" />
+    {% endif %}
+    <meta property="og:url" content="http://vas3k.ru/blog/{{ story.slug }}/" />
+    <meta property="og:image" content="{{ story.image|resized_image:900 }}" />
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ story.title }}">
+    {% if not story.password %}
+        <meta name="twitter:description" content="{{ story.text | truncatewords:100 }}">
+    {% endif %}
+    <meta name="twitter:image" content="{{ story.image|resized_image:900}}">
+    <meta name="twitter:image:src" content="{{ story.image|resized_image:900 }}">
+{% endblock %}
+
+{% block body %}
+<div class="container container_width_full">
+    <div class="content blog">
+        <div class="blog__image full-height-forced" style="background-image: url('{{ story.image|resized_image:"full" }}'); -webkit-transform: translate(0, 0) scale(1);">
+            <a href="{{ story.image|resized_image:"full" }}" target="_blank" class="blog__image-link">Открыть изображение &raquo;</a>
+            <span class="blog__info-wrapper">
+                <span class="blog__info">
+                    <span class="blog__title">{{ story.title | safe }}</span>
+                    {% if story.subtitle %}
+                        <span class="blog__subtitle">{{ story.subtitle | safe }}</span>
+                    {% endif %}
+                    <span class="blog__date hide-on-mobile">{{ story.created_at|date:"d E Y"|lower }} :: {{ story.comments_count }} {{ story.comments_count|rupluralize:"комментарий,комментария,комментариев" }} :: {{ story.views_count }} {{ story.views_count|rupluralize:"просмотр,просмотра,просмотров" }} :: {{ story.reading_time }} {{ story.reading_time|rupluralize:"минута,минуты,минут" }} чтения</span>
+                    {% if story.author and story.author != "vas3k" %}
+                        <span class="blog__author author">
+                            <img src="/static/images/avatars/{{ story.author }}.png">{{ story.author }} <span class="hide-on-mobile">::</span>
+                        </span>
+                    {% endif %}
+                    {% if not is_allowed_to_read %}
+                        <form action="." method="get">
+                            <input type="text" name="password" class="blog__password" placeholder="Представься, мразь?" required="required">
+                            <input type="submit" style="position: absolute; left: -9999999px;">
+                        </form>
+                    {% endif %}
+                </span>
+            </span>
+        </div>
+        {% if is_allowed_to_read %}
+            <div class="blog__text">
+                <p>{{ story.text|safe|nl2br }}</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="clearfix"></div>
+
+    {% if is_allowed_to_read %}
+        <div class="comments">
+            {% include "comments/comments.html" %}
+
+            {% if story.is_commentable %}
+                {% comment_form story.id cookies.username %}
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

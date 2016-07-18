@@ -1,0 +1,5 @@
+{% load text_filters %}
+<span class="events__block block-textbig">
+    {% if block.memories.0.title %}<h3>{{ block.memories.0.title }}</h3>{% endif %}
+    {% if block.memories.0.text %}<p>{{ block.memories.0.text|safe|nl2br }}</p>{% endif %}
+</span>

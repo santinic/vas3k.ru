@@ -1,0 +1,29 @@
+{% load text_filters %}
+<span class="comments__title">Комментарии</span>
+{% for comment in comments %}
+    <div class="comment" id="comment{{ comment.id }}">
+        <div class="comment__header">
+            <div class="comment__avatar" style="background-image: url('/static/images/avatars/{{ comment.avatar }}');"></div>
+            <div class="comment__author">
+                <strong onclick="nick('{{ comment.author }}');" style="cursor: pointer;">{{ comment.author }}</strong>
+                <small>&#11820; {{ comment.created_at|date:"d E Y — H:i" }} &#11820;</small>
+                {% if comment.ip %}
+                    <a href="/comments/ip/{{ comment.ip }}/">
+                        <small>IP: {{ comment.ip }}</small>
+                    </a>
+                {% endif %}
+                {% if comment.useragent %}
+                    <small>&#11820;
+                        {% if "Linux" in comment.useragent %}Linux{% endif %}
+                        {% if "Mac OS" in comment.useragent %}Apple{% endif %}
+                        {% if "Windows" in comment.useragent %}Windows{% endif %}
+                    </small>
+                {% endif %}
+            </div>
+            <a href="#comment{{ comment.id }}" class="comment__id">#</a>
+        </div>
+        <div class="comment__text">
+            {{ comment.text|safe|quoting }}
+        </div>
+    </div>
+{% endfor %}

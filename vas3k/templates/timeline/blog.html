@@ -1,0 +1,15 @@
+{% load text_filters %}
+<a href="/{{ story.type }}/{{ story.slug }}/" class="story story_type_timeline" style="background-image: url('{{ story.image|resized_image:900 }}');">
+    <span class="story__info">
+        <span class="story__title">{{ story.title | safe }}</span>
+        {% if story.subtitle %}
+            <span class="story__subtitle">{{ story.subtitle | safe }}</span>
+        {% endif %}
+        {% if story.author and story.author != "vas3k" %}
+            <span class="story__author hide-on-mobile">
+                <img src="/static/images/avatars/{{ story.author }}.png">{{ story.author }}
+            </span>
+        {% endif %}
+        <span class="story__date">{{ story.created_at|date:"d E Y"|lower }} :: {{ story.comments_count }} {{ story.comments_count|rupluralize:"комментарий,комментария,комментариев" }} :: {{ story.views_count }} {{ story.views_count|rupluralize:"просмотр,просмотра,просмотров" }}</span>
+    </span>
+</a>

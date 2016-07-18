@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% load staticfiles %}
+{% load text_filters %}
+{% load comments %}
+
+{% block title %}
+    {{ story.title }} :: Галерея {{ block.super }}
+{% endblock %}
+
+{% block body_styles %}
+    {% if story.data and "background_color" in story.data %}background-color: {{ story.data.background_color }};{% endif %}
+    {% if story.data and "color" in story.data %}color: {{ story.data.color }};{% endif %}
+{% endblock %}
+
+{% block meta %}
+    {{ block.super }}
+    <meta property="og:title" content="{{ story.title }}" />
+    {% if story.subtitle %}<meta property="og:description" content="{{ story.subtitle }}" />{% endif %}
+    <meta property="og:url" content="http://vas3k.ru/gallery/{{ story.slug }}/" />
+    <meta property="og:image" content="{{ story.image|resized_image:900 }}" />
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ story.title }}">
+    {% if story.subtitle %}<meta name="twitter:description" content="{{ story.subtitle }}">{% endif %}
+    <meta name="twitter:image" content="{{ story.image|resized_image:900 }}">
+    <meta name="twitter:image:src" content="{{ story.image|resized_image:900 }}">
+{% endblock %}
+
+{% block body %}
+<div class="container container_width_full">
+    <div class="content gallery">
+        <a href="{{ story.image|resized_image:"full" }}">
+            {% if ".mp4" in story.image %}
+                <div class="gallery__video">
+                    <video id="0" class="sublime" width="980" height="551" data-uid="0" preload="none">
+                        <source src="{{ story.image }}" data-quality="hd" />
+                    </video>
+                </div>
+            {% elif "player.vimeo.com" in story.image %}
+                <div class="gallery__video">
+                    <iframe src="{{ story.image }}" width="980" height="551" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                </div>
+            {% else %}
+                <img src="{{ story.image|resized_image:"full" }}" alt="{{ story.title }}" class="gallery__image" style="-webkit-transform: translate(0, 0) scale(1);">
+            {% endif %}
+        </a>
+        <div class="gallery__title">{{ story.title | safe }}</div>
+        {% if story.subtitle %}
+            <div class="gallery__subtitle">{{ story.subtitle | safe }}</div>
+        {% endif %}
+        {% if story.text %}
+            <div class="gallery__text">{{ story.text|safe|nl2br2 }}</div>
+        {% endif %}
+    </div>
+    <div class="clearfix"></div>
+    <div class="comments">
+        {% include "comments/comments.html" %}
+
+        {% if story.is_commentable %}
+            {% comment_form story.id cookies.username %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="//cdn.sublimevideo.net/js/eklkv4dk.js"></script>
+{% endblock %}

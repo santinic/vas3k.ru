@@ -1,0 +1,232 @@
+.memory-text {
+    overflow: hidden;
+    margin-bottom: 50px;
+}
+
+    .memory-text__text {
+        display: block;
+        margin-top: 10px;
+    }
+
+        .memory-text__text a {
+            color: #666;
+        }
+
+.memory-picsquare {
+    display: block;
+    position: relative;
+    width: 47%;
+    min-width: 400px;
+    float: left;
+    background-size: cover;
+    margin-bottom: 50px;
+}
+
+    .memory-picsquare:before {
+        content: "";
+        display: block;
+        padding-top: 100%;
+    }
+
+    .memory-picsquare::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 10;
+        background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 80%, rgba(0,0,0,0.65) 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(80%,rgba(0,0,0,0.55)), color-stop(100%,rgba(0,0,0,0.65)));
+        background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.55) 80%,rgba(0,0,0,0.65) 100%);
+        background: -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.55) 80%,rgba(0,0,0,0.65) 100%);
+        background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.55) 80%,rgba(0,0,0,0.65) 100%);
+        background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.55) 80%,rgba(0,0,0,0.65) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 );
+    }
+
+    .memory-picsquare__text {
+        position: absolute;
+        left: 15px;
+        bottom: 15px;
+        right: 25px;
+        color: #FFF;
+        line-height: 1.3em;
+        z-index: 20;
+        font-family: "Georgia", "Times New Roman", serif;
+        font-size: 20px;
+        text-align: center;
+    }
+
+.block-picbig {
+    width: 100%;
+	height: 700px;
+	max-width: 1800px;
+	margin: 0 auto;
+    background-size: cover;
+    background-position: 50% 50%;
+    margin-top: 0;
+}
+
+    .block-picbig__text {
+        display: none;
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        color: #FFF;
+        font-size: 18px;
+        text-shadow: 2px 2px 18px #000;
+    }
+
+        .block-picbig:hover .block-picbig__text {
+            display: block;
+            font-family: "Georgia", "Times New Roman", serif;
+            font-size: 18px;
+        }
+
+.block-picnormal {
+    width: 100%;
+	max-width: 1000px;
+	margin: 50px auto 30px;
+    text-decoration: none;
+    text-align: center;
+}
+
+    .block-picnormal__image {
+        width: 100%;
+    }
+
+    .block-picnormal__text {
+        display: block;
+        font-style: normal;
+        font-size: 20px;
+        font-family: "Georgia", "Times New Roman", serif;
+        color: #666;
+        padding-top: 10px;
+    }
+
+.block-textbig {
+    width: 90%;
+    max-width: 800px;
+    display: block;
+    margin: 100px auto 130px;
+    overflow: visible;
+    line-height: 1.6em;
+    position: relative;
+    z-index: 5;
+    letter-spacing: 0.01rem;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    font-family: "Georgia", "Times New Roman", serif;
+}
+
+.block-video {
+    width: 100%;
+    height: 500px;
+    max-width: 980px;
+	margin: 0 auto;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.block-map {
+    width: 100%;
+    height: 500px;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+    .block-map::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 10;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .block-map__memories {
+        position: relative;
+        z-index: 20;
+        margin: 0 auto;
+        width: 90%;
+        max-width: 1600px;
+    }
+
+        .block-map__memory {
+            display: block;
+            width: 33%;
+            background-color: #FFF;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+            .block-map__memory-image {
+                display: block;
+                margin: 10px;
+                height: 300px;
+                background-size: cover;
+                background-position: 50% 50%;
+            }
+
+            .block-map__memory-text {
+                display: block;
+                font-size: 14px;
+                padding: 0 10px 10px;
+                color: #333;
+            }
+
+.block-timeline {
+    margin: 0 auto;
+    padding: 50px 0 20px;
+    max-width: 1000px;
+}
+
+    .block-timeline__block {
+        display: block;
+        position: relative;
+        width: 47%;
+        margin-bottom: 60px;
+        margin-top: 10px;
+        text-decoration: none;
+    }
+
+    .left {
+        float: left;
+    }
+
+    .right {
+        float: right;
+    }
+
+    .block-timeline__image {
+    }
+
+        .block-timeline__image img {
+            width: 100%;
+        }
+
+        .block-timeline__title {
+            display: block;
+            color: #999;
+            padding-top: 10px;
+            text-align: center;
+            line-height: 1.3em;
+            z-index: 20;
+            font-family: "Georgia", "Times New Roman", serif;
+            font-size: 18px;
+        }
+
+    .block-timeline__text {
+    }
+
+        .block-timeline__text-inner {
+            font-size: 14px;
+            color: #333;
+            padding: 10px 0;
+        }

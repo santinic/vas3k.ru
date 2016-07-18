@@ -1,0 +1,6 @@
+{% load text_filters %}
+<a href="{{ block.memories.0.image|resized_image:"full" }}" class="events__block block-picbig full-height" style="background-image: url('{{ block.memories.0.image|resized_image:"full" }}');" style="-webkit-transform: translate(0, 0) scale(1);">
+    {% if block.memories.0.title %}
+        <span class="block-picbig__text">{{ block.memories.0.title }}</span>
+    {% endif %}
+</a>

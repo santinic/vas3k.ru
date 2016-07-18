@@ -1,0 +1,13 @@
+{% load text_filters %}
+<div class="sidebar__block sidebar-comments">
+    <ul>
+        {% for comment in last_comments %}
+            <li class="sidebar-comments__comment">
+                <a href="/{{ comment.story.type }}/{{ comment.story.slug }}/#comment{{ comment.id }}" class="sidebar-comments__title">{{ comment.author }} &rarr; {{ comment.story.title }}</a>
+                {% if not comment.story.password %}
+                    <small class="sidebar-comments__preview">{{ comment.text|striptags|truncatewords:20|nl2br|safe }}</small>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
