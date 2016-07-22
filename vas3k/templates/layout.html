@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="{% static "css/normalize.min.css" %}">
         <link rel="stylesheet" href="{% static "css/highlight/monokai_sublime.css" %}">
         <link rel="stylesheet" href="{% static "css/styles.css" %}?v=25">
-        <link rel="stylesheet" href="{% static "css/stories.css" %}?v=28">
+        <link rel="stylesheet" href="{% static "css/stories.css" %}?v=29">
         <link rel="stylesheet" href="{% static "css/memories.css" %}?v=26">
         <link rel="stylesheet" href="{% static "css/main.css" %}?v=25">
 {#        <link rel="stylesheet" href="{% static "css/fonts.css" %}">#}
@@ -46,7 +46,7 @@
                 <li class="menu-item {% if story_type == "blog" %}menu-item_active_yes{% endif %}"><a href="/blog/" class="menu-link">Блог</a></li>
                 <li class="menu-item {% if story_type == "events" %}menu-item_active_yes{% endif %}"><a href="/events/" class="menu-link">События</a></li>
                 <li class="menu-item {% if story_type == "gallery" %}menu-item_active_yes{% endif %}"><a href="/gallery/" class="menu-link">Галерея</a></li>
-                <li class="menu-item"><a href="http://storage.vas3k.ru" class="menu-link">Сторадж</a></li>
+                <li class="menu-item"><a href="{% url "rss.full" %}" target="_blank" class="menu-link">RSS</a></li>
             </ul>
             <form action="http://www.google.ru/search?q=site%3Avas3k.ru+" method="get" class="menu-search">
                 <input type="hidden" name="domains" value="vas3k.ru">

@@ -545,10 +545,11 @@
 
         .blog__text a,
         .events__text a,
-        .block-textbig a {
+        .block-textbig a,
+        .gallery__text a {
             text-decoration: none;
             color: #444 !important;
-            font-weight: 100;
+            font-weight: 400;
             border-bottom: solid 1px #444;
         }
 
